@@ -19,7 +19,7 @@ routes.use(express.json());
 const PORT = 3000;
 
 // Initialize and connect to DB
-try {
+/*try {
     mongoose.connect(process.env.DB, {
         useUnifiedTopology: true,
         useNewUrlParser: true
@@ -28,8 +28,21 @@ try {
 }
 catch (error) {
     console.log(error);
-}
+}*/
 
+async function connectToDB() {
+    mongoose.connect("mongodb://127.0.0.1:27017/admin", { useNewUrlParser: true, useUnifiedTopology: true })
+      .then(() => {
+        console.log('Connected to MongoDB');
+        // Your database operations here
+      })
+      .catch((error) => {
+        console.error('Error connecting to MongoDB:', error);
+      });
+    
+    }
+    connectToDB();
+    
 // Initialize routes
 routes.use('/', newsInfo);
 
